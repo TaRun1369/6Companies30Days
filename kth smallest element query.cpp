@@ -1,4 +1,4 @@
-typedef pair<string, int> pi; // element,index
+typedef pair<string, int> pi; // element,index 
 
 
 class Solution {
