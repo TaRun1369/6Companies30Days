@@ -1,20 +1,28 @@
 class Solution {
 public:
     int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
-        unordered_set<int> s(arr2.begin(),arr2.end());
-        int ans = 0;
-        for(auto it : arr1){
-            int flag = 1;
-            for(int i = it - d;i <= (it + d);i++){
-                if(s.find(i) != s.end()){
-                    flag = 0;
+        int res = 0;
+        sort(arr1.begin(),arr1.end());
+        sort(arr2.begin(),arr2.end());
+        for(auto var:arr1)
+        {
+            int start = 0;
+            int end = arr2.size()-1;
+            int mid = (start + end)/2;
+            res++;
+            while(start <= end)
+            {
+                mid = (start + end)/2;
+                if((arr2[mid] <= (d+var))  and (arr2[mid] >= (var-d)))
+                {
+                    res--;
                     break;
                 }
+                else if(arr2[mid] > (d+var))                    end = mid-1;
+                else                                          start = mid+1;
             }
-            if(flag == 1) ans++;
-            
         }
-        return ans;
+        return res;
 
     }
 };
