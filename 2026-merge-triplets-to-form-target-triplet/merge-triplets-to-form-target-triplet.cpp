@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool mergeTriplets(vector<vector<int>>& trip, vector<int>& t) {
-        set<int> ind;
+        unordered_set<int> ind;
         int c = 0;
         for(auto it : trip){
                 bool fl = false;
