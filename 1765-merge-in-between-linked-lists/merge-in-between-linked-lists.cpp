@@ -11,7 +11,7 @@
 class Solution {
 public:
     ListNode* mergeInBetween(ListNode* list1, int a, int b, ListNode* list2) {
-        ListNode* dummy = new ListNode(0,list1),* temp = list1,*awala,*bwala,*t2 = list2;
+        ListNode* temp = list1,*awala,*bwala,*t2 = list2;
         int c = 1;
         while(temp != NULL && c != a){
             temp = temp->next;
