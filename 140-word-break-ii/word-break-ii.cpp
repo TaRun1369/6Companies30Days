@@ -1,57 +1,43 @@
 class Solution {
 public:
-    bool check(string t,set<string> wordDict){
-       if(wordDict.find(t) == wordDict.end()) return false;
-       return true;
-
-    }
-    
-    void recur(string &s,int ind,set<string> ss,string &ans,vector<string> &ass){
-        if(ind == s.size()){
-            
-            ass.push_back(ans);
-        }
-        string temp;
-        for(int j = ind;j<s.size();j++){
-            cout<<temp<<endl;
-            if(check(temp,ss) == true ){
-                ans+= temp;
-
-                ans += " ";
-                // for(int)
-                // cout<<ans<<endl;
-                recur(s,j,ss,ans,ass);
-                for(int i = 0;i<temp.size() + 1;i++){
-                    ans.pop_back();
-                }
-                
-
+    set<string> dict;
+    void recur(string s,int prev,int curr,vector<string> &ans,string ansstr){
+        if(curr == s.size() ) {
+            if(prev == s.size()){
+            ansstr.pop_back();    
+            ans.push_back(ansstr);
             }
-            temp += s[j];
+            return;
         }
+        
+        // if(curr.size() == s.size() - 1){
+        //     string temp = s.substr(prev,curr - prev + 1);
+        //     if(dict.find(temp) != dict.end()) {
+        //         ansstr += (temp);
+        //         ans.push_back(ansstr);
+        //     }
+        //     return;
+        // }
 
-        if(check(temp,ss) == true ){
-                ans+= temp;
-
-                // ans += " ";
-                // for(int)
-                // cout<<ans<<endl;
-                recur(s,s.size(),ss,ans,ass);
-                for(int i = 0;i<temp.size();i++){
-                    ans.pop_back();
-                }
-                
-
+        string temp = s.substr(prev,curr - prev + 1);
+            if(dict.find(temp) != dict.end()) {
+                // ansstr += (temp);
+                temp += " ";
+                recur(s,curr+1,curr+1,ans,ansstr + temp);
+                temp.pop_back();
             }
+            // else{
+                recur(s,prev,curr + 1,ans,ansstr);
+            // }
+
+        
+
     }
     vector<string> wordBreak(string s, vector<string>& wordDict) {
-        string ans = "";
-        vector<string> ass;
-        set<string> ss(wordDict.begin(),wordDict.end());
-        // for(auto it : wordDict){
-        //     s
-        // }
-        recur(s,0,ss,ans,ass);
-        return ass;
+        vector<string> ans;
+        for(auto it:  wordDict) dict.insert(it);
+        // strint t = ""; 
+        recur(s,0,0,ans,"");
+        return ans;
     }
 };
