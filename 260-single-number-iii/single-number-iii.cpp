@@ -1,23 +1,20 @@
 class Solution {
 public:
-    int getBit(int x, int k) {
-        return (x >> k) & 1;
-    }
-
     vector<int> singleNumber(vector<int>& nums) {
-        int xorXY = 0;
-        for (int num : nums)
-            xorXY ^= num;
+        long long xort = 0;
+        for(auto it : nums) xort ^= it;
+        cout<<xort<<endl;
+        long long rightmostbitsetnumber = (xort & (xort - 1)) ^ xort;
+        cout<<rightmostbitsetnumber<<endl;
+        long long b1 = 0,b2 = 0;
 
-        int pos = 0;
-        while (!getBit(xorXY, pos)) pos++;
-
-        int x = 0;
-        for (int num : nums)
-            if (getBit(num, pos))
-                x ^= num;
-
-        int y = xorXY ^ x;
-        return {x, y};
+        for(auto it : nums){
+            if(it & rightmostbitsetnumber){
+                cout<<it<<endl;
+                b1 ^= it;
+            }
+            else b2^=it;
+        }
+        return {int(b1),int(b2)};
     }
 };
