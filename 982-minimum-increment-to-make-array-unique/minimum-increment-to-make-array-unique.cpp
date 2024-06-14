@@ -1,23 +1,22 @@
 class Solution {
 public:
     int minIncrementForUnique(vector<int>& nums) {
-        // sort(nums.begin(),nums.end());
-        // 1 1 2 2 3 7
-        // 1 ka upper bound   - (2 - 0) = no. of ones
-
-        map<int,int> mp;
-
-        for(auto it : nums){
-            mp[it]++;
-        }
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        sort(nums.begin(), nums.end());
         int ans = 0;
-        for(auto &it : mp){
-            if(it.second > 1){
-                int rem = it.second - 1;
-                it.second -= rem;
-                mp[it.first + 1] += rem;
-                ans += rem;
+        for (int i = 1; i < nums.size(); i++) {
+
+            int a = nums[i], b = nums[i - 1];
+            if (nums[i] <= nums[i - 1]) {
+                // while (a <= b) {
+                //     a++;
+                //     ans++;
+                // }
+                ans=ans+abs(a-b)+1;
+                nums[i]=nums[i]+abs(a-b)+1;
             }
+            //nums[i] = a;
         }
         return ans;
     }
