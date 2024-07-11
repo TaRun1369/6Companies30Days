@@ -1,26 +1,18 @@
 class Solution {
 public:
+int dp[10005][105];
+    int recur(int n,int curr,int kahatak){
+        if( n == 0) return 0;
+        if(n < 0) return 1e9;
+        if(curr > kahatak) return 1e9;
+            if(dp[n][curr] !=  -1) return dp[n][curr];
+        int take = 1 + recur(n - curr*curr,curr,kahatak);
+        int nottake = recur(n , curr + 1,kahatak);
+        return dp[n][curr] = min(take,nottake);
+    }
     int numSquares(int n) {
-        vector<int>prev(n+1,1e9);
-        prev[0]=0;
-        for(int index=1;index<=n;index++)
-        {
-            
-            for(int target=0;target<=n;target++)
-            {
-                int nottake=prev[target];
-                int take=INT_MAX;
-                if(index*index<=target)
-                {
-                    take=1+prev[target-(index*index)];
-                }
-                prev[target]=min(take,nottake);
-            }
-        }
-        if(prev[n]>=1e9)
-        {
-            return 1;
-        }
-        return prev[n];
+        int kahatak = sqrt(n);
+       memset(dp,-1,sizeof(dp));
+        return recur(n,1,kahatak);
     }
 };
